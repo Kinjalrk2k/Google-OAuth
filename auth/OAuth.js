@@ -14,7 +14,4 @@ const loginLink = OAuth2Client.generateAuthUrl({
   scope: config.oauth2Credentials.scopes,
 });
 
-module.exports = {
-  OAuth2Client,
-  loginLink,
-};
+module.exports = { OAuth2Client, loginLink };

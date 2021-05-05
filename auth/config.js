@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 module.exports = {
   JWTsecret: process.env.SECRET,
   baseURL: `${process.env.URL}`,
@@ -10,6 +12,7 @@ module.exports = {
     client_secret: process.env.GOOGLE_CLIENT_SECRET,
     redirect_uris: [`${process.env.URL}/auth/google/callback`],
     scopes: [
+      "https://www.googleapis.com/auth/userinfo.profile",
       "https://www.googleapis.com/auth/drive.appdata",
       "https://www.googleapis.com/auth/drive.file",
     ],

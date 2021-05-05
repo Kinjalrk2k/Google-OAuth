@@ -11,12 +11,12 @@ router.get("/google", (req, res) => {
 router.get("/google/callback", (req, res) => {
   if (req.query.error) {
     // TODO: Handle Error
-    console.error("Sign In error0");
+    console.error("Sign In error at 0");
     return res.redirect("/");
   } else {
     OAuth2Client.getToken(req.query.code, (err, token) => {
       if (err) {
-        console.error("Sign In error1");
+        console.error("Sign In error at 1");
         console.error(err);
         // TODO: Handle Error
         return res.redirect("/");
