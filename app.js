@@ -1,14 +1,12 @@
 const express = require("express");
 const { isLoggedIn } = require("./middlewares/auth");
 
-const google = require("googleapis").google;
-
-const { OAuth2Client } = require("./utils/google/OAuth");
-
 require("dotenv").config();
 const app = express();
 
 app.use(require("cookie-parser")());
+
+const { profile } = require("./utils/google/services");
 
 app.get("/", (req, res) => {
   res.json({
@@ -31,8 +29,7 @@ app.get("/protected", isLoggedIn, (req, res) => {
 });
 
 app.get("/profile", isLoggedIn, async (req, res) => {
-  const profile = google.oauth2({ auth: OAuth2Client, version: "v2" });
-
+  console.log("Your User ID is:", req.userId);
   const { data } = await profile.userinfo.get();
   res.json(data);
 });

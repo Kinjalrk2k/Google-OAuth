@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
-const google = require("googleapis").google;
 
 const { OAuth2Client } = require("../utils/google/OAuth");
+const { profile } = require("../utils/google/services");
 
 module.exports = {
   isLoggedIn: (req, res, next) => {
@@ -17,9 +17,15 @@ module.exports = {
           }
 
           OAuth2Client.setCredentials({ access_token: decoded.access_token });
+
+          const {
+            data: { id },
+          } = await profile.userinfo.get();
+
+          req.userId = id;
+          next();
         }
       );
-      next();
     }
   },
 };
