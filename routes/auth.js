@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 
-const { OAuth2Client, loginLink } = require("../auth/OAuth");
+const { OAuth2Client, loginLink } = require("../utils/google/OAuth");
 
 router.get("/google", (req, res) => {
   // res.json({ login: loginLink });

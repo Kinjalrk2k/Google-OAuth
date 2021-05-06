@@ -3,7 +3,7 @@ const { isLoggedIn } = require("./middlewares/auth");
 
 const google = require("googleapis").google;
 
-const { OAuth2Client } = require("./auth/OAuth");
+const { OAuth2Client } = require("./utils/google/OAuth");
 
 require("dotenv").config();
 const app = express();
