@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const { OAuth2Client } = require("../utils/google/OAuth");
 const { profile } = require("../utils/google/services");
+const User = require("../models/User");
 
 module.exports = {
   isLoggedIn: (req, res, next) => {
@@ -21,16 +22,18 @@ module.exports = {
             refresh_token: decoded.refresh_token,
           });
 
-          const {
-            data: { id },
-          } = await profile.userinfo.get();
+          const { data } = await profile.userinfo.get();
 
-          /**
-           * check in database by the google id
-           * if present, set it in req.user
-           * if not create a user and then set it to req.user
-           */
-          req.userId = id;
+          let user = await User.findOne({ googleId: data.id });
+          if (!user) {
+            user = new User({
+              googleId: data.id,
+              name: data.name,
+              picture: data.picture,
+            });
+            await user.save();
+          }
+          req.user = user;
           next();
         }
       );
