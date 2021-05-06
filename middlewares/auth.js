@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const google = require("googleapis").google;
 
-const { OAuth2Client } = require("../auth/OAuth");
+const { OAuth2Client } = require("../utils/OAuth");
 
 module.exports = {
   isLoggedIn: (req, res, next) => {
